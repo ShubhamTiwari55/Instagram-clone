@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:insta_clone/resources/storage_methods.dart';
 
 class AuthMethods{
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -15,16 +16,19 @@ Future<String> signUpUser({
     required String password,
     required String username,
     required String bio,
-    //required Uint8List file
+    required Uint8List file
 })async{
   String res = "An error occurred";
       try{
           if(email.isNotEmpty || password.isNotEmpty || username.isNotEmpty ||
-          bio.isNotEmpty) {
+          bio.isNotEmpty || file!=null) {
             //register user
             UserCredential cred = await auth.createUserWithEmailAndPassword(
                 email: email, password: password);
             print(cred.user!.uid);
+
+            String photoUrl = await StorageMethods(
+            ).uploadImage('profileImage', file, false);
             //add user to the database
             await firestore.collection('users').doc(cred.user!.uid).set({
               'username': username,
@@ -32,7 +36,8 @@ Future<String> signUpUser({
               'email': email,
               'bio': bio,
               'followers': [],
-              'following': []
+              'following': [],
+              'photoUrl': photoUrl,
             });
             //Another way of executing the above method
             // await firestore.collection('users').add({
@@ -50,7 +55,25 @@ Future<String> signUpUser({
   }
 return res;
 }
-
+//logging in user
+Future<String> loginUser({
+    required String email,
+    required String password
+})async{
+  String res = "Some error occurred";
+  try{
+    if(email.isNotEmpty || password.isNotEmpty){
+     await auth.signInWithEmailAndPassword(email: email,
+          password: password);
+     res = "success";
+    }else{
+      res = "Please enter all the fields";
+    }
+  }catch(err){
+    res = err.toString();
+  }
+  return res;
+}
 
 }
 

@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
         // home: ResponsiveLayout(webScreenLayout: WebScreenLayout(), mobileScreenLayout: MobileScreenLayout())
-        home: signUpScreen(),
+        home: LoginScreen(),
     );
   }
 }

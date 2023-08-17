@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/resources/authMethods.dart';
+import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/textFieldInput.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,6 +21,19 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
   }
+
+  void loginUser()async{
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text,
+        password: _passwordController.text
+    );
+    if(res == "Success"){
+      //
+    }else{
+      showSnackBar(res, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Flexible(child: Container(), flex: 2,),
+      Flexible(flex: 2,child: Container(),),
     // svg image
     SvgPicture.asset('assets/images/ic_instagram.svg',height: 64,
     color: Colors.white,),
@@ -49,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //button for login
       SizedBox(height: 20,),
       InkWell(
+        onTap: loginUser,
         child: Container(
           child: Text('Log in', style: TextStyle(
             fontSize: 18,
