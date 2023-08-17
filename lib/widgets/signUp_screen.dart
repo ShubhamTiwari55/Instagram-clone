@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/resources/authMethods.dart';
 import 'package:insta_clone/widgets/textFieldInput.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -58,9 +59,9 @@ class _signUpScreenState extends State<signUpScreen> {
               //text field for username
               SizedBox(height: 40,),
               TextFieldInput(
-                  textEditingController: _emailController,
-                  hintText: 'Enter Your Email',
-                  textInputType: TextInputType.emailAddress),
+                  textEditingController: usernameController,
+                  hintText: 'Enter Your Username',
+                  textInputType: TextInputType.text),
               //Text field for email
               SizedBox(height: 20,),
               TextFieldInput(
@@ -83,6 +84,13 @@ class _signUpScreenState extends State<signUpScreen> {
               //button for login
               SizedBox(height: 20,),
               InkWell(
+                onTap: ()async{
+                      String res = await AuthMethods().signUpUser(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      username: usernameController.text, bio: bioController.text);
+                      print(res);
+                },
                 child: Container(
                   child: Text('Log in', style: TextStyle(
                     fontSize: 18,
