@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Flexible(child: Container(), flex: 2,),
-    SizedBox(height: 40,),
     // svg image
     SvgPicture.asset('assets/images/ic_instagram.svg',height: 64,
     color: Colors.white,),
@@ -47,17 +46,22 @@ class _LoginScreenState extends State<LoginScreen> {
           textInputType: TextInputType.text,
         isPass: true,
       ),
+      //button for login
       SizedBox(height: 20,),
-      Container(
-        child: Text('Log in'),
-        width: 150,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 12),
-        decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
+      InkWell(
+        child: Container(
+          child: Text('Log in', style: TextStyle(
+            fontSize: 18,
+          ),),
+          width: 150,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 12),
+          decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            color: Colors.blueAccent
           ),
-          color: Colors.blueAccent
         ),
       ),
       SizedBox(height: 12,),
@@ -70,11 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text('Do not have an account? '),
                 padding: EdgeInsets.symmetric(vertical: 8),
               ),
-          Container(
-            child: Text('Sign up!', style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),),
-            padding: EdgeInsets.symmetric(vertical: 8),
+          GestureDetector(
+            onTap: (){},
+            child: Container(
+              child: Text('Sign up!', style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),),
+              padding: EdgeInsets.symmetric(vertical: 8),
+            ),
           )
         ],
       ),
