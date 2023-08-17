@@ -2,9 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_clone/resources/authMethods.dart';
+import 'package:insta_clone/responsive/layout_screen.dart';
+import 'package:insta_clone/responsive/webScreenLayout.dart';
+import 'package:insta_clone/screen/login_screen.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/textFieldInput.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../responsive/mobileScreenLayout.dart';
 
 class signUpScreen extends StatefulWidget {
   const signUpScreen({Key? key}) : super(key: key);
@@ -53,7 +58,20 @@ class _signUpScreenState extends State<signUpScreen> {
     });
     if(res!='success'){
       showSnackBar(res, context);
+    }else{
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context)=>
+        const ResponsiveLayout(webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),),)
+      );
     }
+  }
+
+  void navigateToLogin(){
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context)=>const LoginScreen(),
+      ),
+    );
   }
 
   @override
@@ -174,14 +192,14 @@ class _signUpScreenState extends State<signUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text('Do not have an account? '),
+                    child: Text('Account already exists?'),
                     padding: EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: navigateToLogin,
                     child: Container(
                       child: Text(
-                        'Sign up!',
+                        'Log in!',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
