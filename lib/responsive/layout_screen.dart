@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:insta_clone/providers/userProvider.dart';
-import 'package:insta_clone/utils/dimensions.dart';
 import 'package:provider/provider.dart';
+
+import '../utils/globalVariables.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget webScreenLayout;
